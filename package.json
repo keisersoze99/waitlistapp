@@ -1,0 +1,23 @@
+{
+  "name": "waitlistapp",
+  "version": "1.0.0",
+  "description": "Done as part of udemy labs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keisersoze99/waitlistapp.git"
+  },
+  "author": "Harish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keisersoze99/waitlistapp/issues"
+  },
+  "homepage": "https://github.com/keisersoze99/waitlistapp#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  }
+}
