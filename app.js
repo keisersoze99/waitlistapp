@@ -19,7 +19,9 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-
+app.post('/register', (req, res) => {
+    res.send('post handler');
+})
 
 app.listen(PORT, () => {
     console.log('Listening ...');
