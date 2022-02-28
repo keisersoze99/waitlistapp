@@ -13,16 +13,40 @@ const PORT = 3000;
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.render('home');
 })
 
+db.connect(err => {
+    if(err) {
+        throw err;
+    }
+})
+
 app.post('/register', (req, res) => {
-    res.send('post handler');
+    
+    let email = req.body.email;
+    console.log(req.body);
+    console.log(email);
+    let queryString = 'INSERT INTO waitlist (\`email\`) VALUES ("'+email+'");';
+    db.query(queryString, (err, result) => {
+        if(err) {
+            res. send(err);
+        } else {
+            let position = result.insertId;
+            res.send({position});
+        }
+        
+    })
 })
 
 app.listen(PORT, () => {
     console.log('Listening ...');
 })
+
+var connectDb = () => {
+    
+}
