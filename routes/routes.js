@@ -1,6 +1,8 @@
 const express = require('express');
+const { append } = require('express/lib/response');
 const Router = express.Router();
 const dbConnection = require('../model/dbConfigs');
+const ExpressError = require('../utils/ExpessError');
 
 Router.get('/', (req, res) => {
     res.render('home');
@@ -23,8 +25,12 @@ Router.get('/waitlist/:id', (req, res) => {
             if(result.length > 0) {
                 let user = result[0];
                 res.render('confirmation', {user});
-            } 
-            
+            } else {
+                let err = {
+                    message : 'User not found'
+                }
+                res.render('error', {err});
+            }
         }
     })
 })
@@ -44,6 +50,10 @@ Router.post('/register', (req, res) => {
         }
         
     })
+})
+
+Router.all('*', (req, res, next) => {
+    throw new ExpressError('Page Not Found', 404);
 })
 
 module.exports = Router;
