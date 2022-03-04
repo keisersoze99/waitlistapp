@@ -6,13 +6,17 @@
 </head>
 
 <body>
+    
     <img src="logo.png" alt="">
     <h1>Hummingbird</h1>
     <p>The world's first $0 commission app. <br>Stop paying $10 for every trade.</p>
     <form action="/register" method="POST">
-        <input type="email" name="email" placeholder="Enter Email Address">
+        <input type="email" name="email" placeholder="Enter Email Address" required>
         <button>Get Early Access</button>
     </form>
+    <% if(locals.error) {%>
+        <p id="error"> <%= error %> </p>
+    <% }%>
 </body>
 
 </html>
