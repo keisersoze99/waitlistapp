@@ -1,5 +1,4 @@
 const express = require('express');
-const { append } = require('express/lib/response');
 const Router = express.Router();
 const dbConnection = require('../model/dbConfigs');
 const ExpressError = require('../utils/ExpessError');
@@ -37,13 +36,20 @@ Router.get('/waitlist/:id', (req, res) => {
 
 Router.post('/register', (req, res) => {
     
+    if(!req.body.email) {
+        res.render('home', {error: 'Email cannot be empty'});
+        return;
+    }
     let email = req.body.email;
     console.log(req.body);
     console.log(email);
     let queryString = 'INSERT INTO waitlist (\`email\`) VALUES ("'+email+'");';
     dbConnection.query(queryString, (err, result) => {
         if(err) {
-            res. send(err);
+            if(err.sqlMessage.includes('Duplicate entry')) {
+                res.render('home', {error: 'Email already registered'});
+                return;
+            }
         } else {
             let position = result.insertId;
             res.redirect(`/waitlist/${position}`);
